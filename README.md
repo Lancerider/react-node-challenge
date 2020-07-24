@@ -1,68 +1,104 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# React and Node challenge
 
-## Available Scripts
+Challenge to assess your skills in React and Node.js
 
-In the project directory, you can run:
+## 🦠 The story
 
-### `yarn start`
+We were building an application in React with a backend in Node.js to do accumulative searches that also allow us to mark some of the jobs as favorites.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+It was working great. As you can see in the video below, cypress was all green, and our CEO was happy. Then, we went to eat something only to discover later that COVID deleted part of our code, or at least that is what we want to believe happened 🙈.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+Click on the image to open the video:
 
-### `yarn test`
+[![Cypress all green](./public/cypress.png)](https://drive.google.com/file/d/1-LACFeBM_HcGb_9uCGig5a-m7j1Xdi33/view?usp=sharing)
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+The thing is, that now our cypress is just errors and we don't have time to re-write everything cause our CEO only gave us **4 hours to finish it**. So, we would love you to help us 🙏.
 
-### `yarn build`
+Did you nod? I knew it, you are aweeesome. Ok, next, some tips:
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Search API specification
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+The team created a special API to allow other applications searcing jobs in Get on Board. The result is pretty similar to what you get by using the search input text next to the logo when visiting getonbrd.com but in a computer friendly format. This is what you must know about this endpoint.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+#### GET /search/jobs
 
-### `yarn eject`
+- `URL`: https://www.getonbrd.com/search/jobs
+- `Content-Type`: application/json
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+It returns a list of jobs in JSON (structure specified below). [Click here](https://www.getonbrd.com/search/jobs?q=React+Node+Concierge) if you want to give it a try.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+##### Params
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- `q` (string)
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+##### Response
 
-## Learn More
+```json
+{
+  "jobs": [
+    {
+      "id": "sr-full-stack-react-node-js-get-on-board-remote",
+      "title": "Full-Stack React/Node.js",
+      "recommended": true,
+      "pinned": true,
+      "is_hot": false,
+      "salary": "3400 - 3800",
+      "description": "<p><strong>Hard skills</strong></p><ul><li>...",
+      "functions": "<ul><li> Build epic features that go ...",
+      "benefits": "<ul><li><strong>You will be screened...",
+      "remote": true,
+      "city": null,
+      "country": null,
+      "country_flag_url": null,
+      "new": true,
+      "seniority": "Senior",
+      "logo_url": "https://getonbrd-prod.s3.amazonaws.com/uploads/users/logo/8044/ISO_NEGATIVE-padding-concierge.png",
+      "url": "/jobs/programming/sr-full-stack-react-node-js-get-on-board-remote",
+      "modality": "Full time",
+      "published_at": "Jul 22",
+      "company": {
+        "name": "Concierge by Get on Board",
+        "about": "Concierge is Get on Board's personalized recruiting service. Get screened by us and access exclusive remote jobs, faster.",
+        "url": "/companies/concierge-by-get-on-board"
+      }
+    }
+  ]
+}
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 🤷‍♂️ Missing parts
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+In order to recover all the work we lost, you need to write some components at the server side and some components at the client side.
 
-### Code Splitting
+Click on the image to open the video and see all we accomplished previous to discover our code was infested with COVID:
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+[![Checkout this video](./public/accumulative-search.png)](https://drive.google.com/file/d/1-JGWRiFl5xspJTJ5gN9y8aPG9UUtnRhd/view?usp=sharing)
 
-### Analyzing the Bundle Size
+## 👩‍💻 To run the environment
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+You are a badass in Node and React so we assume you have your dev enviroment set. The only things you have to do in order to run this app is:
 
-### Making a Progressive Web App
+```shell
+$ yarn
+$ yarn dev
+```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+## 🦶 Steps
 
-### Advanced Configuration
+- Fork this repo into a private repository
+- Run cypress and see how it fails miserably 💔
+- Complete the code
+- Run cypress and see how it passes 💚
+- Push your repo and invite us to asess how crack you are at coding
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+Remember: You have **4 hours** to complete the missing parts and make this work, No more time, just **4 hours**.
 
-### Deployment
+## 📃 Disclaimer
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+This is an exercise without any commercial purpose and Get on Board will never by any means:
 
-### `yarn build` fails to minify
+- Share or use your code
+- Oblige you to take this exercise
+- Compensate you in any form for taking this exercise
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Have fun 🥳 and stay home 🏠.

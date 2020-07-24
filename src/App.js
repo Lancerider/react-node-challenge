@@ -1,24 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import "./App.css";
 
 function App() {
+  const [searching, setSearching] = useState(false);
+
+  // TODO: *** hook that brings the last accumulative search (stored jobs)
+
+  // TODO: helper functions for:
+  // 1. Searching jobs
+  // 2. Marking a job as favorite
+  // 3. Cleaning the accumulated searches
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Search jobs</h1>
+      <label htmlFor="term">Term: </label>
+      <input
+        id="term"
+        type="text"
+        value={term}
+        onChange={({ target: { value } }) => setTerm(value)}
+      />
+      <button type="button" onClick={search}>
+        Search
+      </button>
+      <button type="button" onClick={clearSearch}>
+        Clear
+      </button>
+      {searching && <div>...searching</div>}
+      {/**
+       * TODO: Block of code to list the jobs with a button to mark them as favorite
+       * Hint: It would be nice if it is a separate component
+       */}
     </div>
   );
 }
