@@ -85,7 +85,6 @@ $ yarn dev
 
 ## 🦶 Steps
 
-- Fork this repo into a private repository
 - Run cypress and see how it fails miserably 💔
 - Complete the code
 - Run cypress and see how it passes 💚
