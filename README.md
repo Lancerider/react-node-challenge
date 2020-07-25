@@ -83,6 +83,12 @@ $ yarn
 $ yarn dev
 ```
 
+And to run the specs:
+
+```shell
+$ ./node_modules/cypress/bin/cypress run
+```
+
 ## 🦶 Steps
 
 - Run cypress and see how it fails miserably 💔
