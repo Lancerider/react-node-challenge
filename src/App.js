@@ -50,7 +50,7 @@ function App() {
     console.log("Console log : searchJobs -> formattedTerms", formattedTerms)
 
     try {
-      const fetchedJobs = searchJobs(formattedTerms)
+      const fetchedJobs = await searchJobs(formattedTerms)
       localStorage.setItem('jobs', fetchedJobs)
       setJobs(fetchedJobs)
     } catch (error) {
