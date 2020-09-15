@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 function JobsList({ jobs, setFavoriteJob }) {
   const jobsList = Object.values(jobs) || []
@@ -20,6 +21,11 @@ function JobsList({ jobs, setFavoriteJob }) {
       <div className="jobs-list__no-item">No jobs found</div>
     </div>
   )
+}
+
+JobsList.propTypes = {
+  jobs: PropTypes.object,
+  setFavoriteJob: PropTypes.func,
 }
 
 export default JobsList
