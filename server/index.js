@@ -7,24 +7,40 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(pino);
+app.set('trust proxy', true)
 
 let gobClient;
 
-// TODO: *** inialize gobClient here ***
-// hint: use a middleware
+const setGobClient = (req, res, next) => {
+  gobClient = new GobClient(req.ip)
+  next();
+}
 // GobClient uses an unique identifier (i.e: the request ip)
 
 // *** Endpoints ***
 // GET /api/search
-app.get("/api/search", async (req, res) => {
-  const term = req.query.term;
-  let response = await gobClient.accumulateSearch(term);
+app.get("/api/search", setGobClient, async (req, res) => {
+  try {
+    const term = req.query.term;
+    let response = await gobClient.accumulateSearch(term);
+    res.send(response);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
+// POST /api/clear
+app.post("/api/clear", setGobClient, async (req, res) => {
+  let response = gobClient.clearSearch();
   res.send(response);
 });
 
-// TODO: *** Add **
-// POST /api/clear
 // POST /api/fav
+app.post("/api/fav", setGobClient, async (req, res) => {
+  const jobId = req.query.jobId;
+  let response = gobClient.mark(jobId);
+  res.send(response);
+});
 
 app.listen(3001, () =>
   console.log("Express server is running on localhost:3001")
