@@ -1,24 +1,24 @@
 import React from 'react'
 
-function JobsList({jobs, setFavoriteJob}) {
+function JobsList({ jobs, setFavoriteJob }) {
   const jobsList = Object.values(jobs) || []
-  return (
+  return jobsList.length > 0 ? (
     <ol className="search-result">
-      {jobsList.length > 0 ? (
-        <div className="jobs-list">
-          {jobsList.map(job => (
-            <li key={job.jobId} className={job.favorited ? 'favorite-job' : ''}>
-              {job.title}
-              <button type="button" onClick={()=>setFavoriteJob(job.jobId)}>Fav</button>
-            </li>
-          ))}
-        </div>
-      ) : (
-        <div className="container">
-          <div className="jobs-list__no-item">No jobs found</div>
-        </div>
-      )}
+      {jobsList.map((job) => (
+        <li key={job.jobId}>
+          <span className={job.favorited ? 'favorite' : ''}>
+            {job.title} by {job.company.name}
+          </span>
+          <button type="button" onClick={() => setFavoriteJob(job.jobId)}>
+            Fav
+          </button>
+        </li>
+      ))}
     </ol>
+  ) : (
+    <div className="container">
+      <div className="jobs-list__no-item">No jobs found</div>
+    </div>
   )
 }
 

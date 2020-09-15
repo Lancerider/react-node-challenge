@@ -47,7 +47,7 @@ function App() {
 
   const search = async () => {
     setSearching(true)
-    const formattedTerms = term.replace(' ','+')
+    const formattedTerms = term.split(' ').join("+")
 
     try {
       const fetchedJobs = await searchJobs(formattedTerms)
@@ -75,10 +75,10 @@ function App() {
         value={term}
         onChange={({ target: { value } }) => setTerm(value)}
       />
-      <button type="button" onClick={search}>
+      <button className="job-list__actions" type="button" onClick={search}>
         Search
       </button>
-      <button type="button" onClick={clearSearch}>
+      <button className="job-list__actions" type="button" onClick={clearSearch}>
         Clear
       </button>
       {searching && <div>...searching</div>}
