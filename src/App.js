@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import JobsList from './components/JobsList'
 
 import { getJobs, searchJobs, markFavoriteJob, clearJobs } from './api/jobs'
 
@@ -8,7 +9,7 @@ import "./App.css";
 function App() {
   const [searching, setSearching] = useState(false);
   const [term, setTerm] = useState('');
-  const [jobs, setJobs] = useState([])
+  const [jobs, setJobs] = useState({})
 
   const getUserJobs = async () => {
 
@@ -47,7 +48,6 @@ function App() {
   const search = async () => {
     setSearching(true)
     const formattedTerms = term.replace(' ','+')
-    console.log("Console log : searchJobs -> formattedTerms", formattedTerms)
 
     try {
       const fetchedJobs = await searchJobs(formattedTerms)
@@ -82,10 +82,7 @@ function App() {
         Clear
       </button>
       {searching && <div>...searching</div>}
-      {/**
-       * TODO: Block of code to list the jobs with a button to mark them as favorite
-       * Hint: It would be nice if it is a separate component
-       */}
+      {!searching && <JobsList jobs={jobs} setFavoriteJob={setFavoriteJob}/>}
     </div>
   );
 }

@@ -10,8 +10,6 @@ class GoBClient {
     if (!database[clientID]) database[clientID] = {};
   }
 
-  // TODO: *** instance methods ***
-
   getJobs() {
     const jobsSaved = database[this.clientID]
 
@@ -21,7 +19,6 @@ class GoBClient {
   // accumulateSearch() - hit https://www.getonbrd.com/search/jobs storing the jobs locally
 
   accumulateSearch(term) {
-    console.log("Console log : GoBClient -> if -> term", term)
     if (!term) return {response: null, error: "Bad request"}
 
     return new Promise((resolve, reject) => {
@@ -29,7 +26,6 @@ class GoBClient {
       fetch('https://www.getonbrd.com/search/jobs?q=' + term, {
         headers: {'Content-Type': 'application/json'},
       }).then(async response => {
-        console.log("jobId")
         const jobsSaved = database[this.clientID]
         const jobsData = await response.json()
 
@@ -42,7 +38,7 @@ class GoBClient {
           jobsSaved[jobId] = job
         })
 
-        resolve(jobsSaved)
+        resolve({response: jobsSaved, error: null})
       }).catch(err => {
         setTimeout(() => {
           reject({response: null, error: "Not able to get more jobs"})
@@ -58,7 +54,7 @@ class GoBClient {
       return {respone: null, error: "Job not found"}
     }
 
-    jobsSaved[jobId].favorite = true
+    jobsSaved[jobId].favorite = !jobsSaved[jobId].favorite
 
     return {response: jobsSaved, error: null}
   }
