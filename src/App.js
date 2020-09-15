@@ -1,15 +1,69 @@
 import React, { useState, useEffect } from "react";
+
+import { getJobs, searchJobs, markFavoriteJob, clearJobs } from './api/jobs'
+
 import "./App.css";
+
 
 function App() {
   const [searching, setSearching] = useState(false);
+  const [term, setTerm] = useState('');
+  const [jobs, setJobs] = useState([])
 
-  // TODO: *** hook that brings the last accumulative search (stored jobs)
+  const getUserJobs = async () => {
 
-  // TODO: helper functions for:
-  // 1. Searching jobs
-  // 2. Marking a job as favorite
-  // 3. Cleaning the accumulated searches
+    try {
+      const fetchedJobs = await getJobs()
+      setJobs(fetchedJobs)
+      localStorage.setItem('jobs', fetchedJobs)
+    } catch (error) {
+      console.error(error)
+      const jobsInLocalStorage = localStorage['jobs']
+
+      setJobs(jobsInLocalStorage || [])
+    }
+
+    setSearching(false)
+  }
+
+  const setFavoriteJob = async (jobId) => {
+    try {
+      const responseJobs = await markFavoriteJob(jobId)
+      setJobs(responseJobs)
+    } catch (error) {
+      console.error("Error setting favorite Job: ", error)
+    }
+  }
+
+  const clearSearch = async () => {
+    try {
+      const responseJobs = await clearJobs()
+      setJobs(responseJobs)
+    } catch (error) {
+      console.error("Error erasing user's Jobs: ", error)
+    }
+  }
+
+  const search = async () => {
+    setSearching(true)
+    const formattedTerms = term.replace(' ','+')
+    console.log("Console log : searchJobs -> formattedTerms", formattedTerms)
+
+    try {
+      const fetchedJobs = searchJobs(formattedTerms)
+      localStorage.setItem('jobs', fetchedJobs)
+      setJobs(fetchedJobs)
+    } catch (error) {
+      console.error("Error searching Jobs: ", error)
+    }
+
+    setSearching(false)
+  }
+
+  useEffect(() => {
+    setSearching(true)
+    getUserJobs()
+  }, [])
 
   return (
     <div className="App">
