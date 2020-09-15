@@ -2,11 +2,13 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const pino = require("express-pino-logger")();
 const GobClient = require("./GoBClient");
+var cors = require('cors')
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(pino);
+app.use(cors())
 app.set('trust proxy', true)
 
 let gobClient;
