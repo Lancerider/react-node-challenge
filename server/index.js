@@ -29,11 +29,10 @@ app.get("/api/search", setGobClient, async (req, res) => {
   }
 });
 
-// GET /api/jobs
+// GET jobs
 app.get("/api/jobs", setGobClient, async (req, res) => {
   try {
-    const term = req.query.term;
-    let response = await gobClient.accumulateSearch(term);
+    let response = await gobClient.getJobs();
     res.send(response);
   } catch (error) {
     res.send(error);
