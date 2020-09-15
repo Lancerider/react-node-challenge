@@ -54,7 +54,7 @@ class GoBClient {
       return {respone: null, error: "Job not found"}
     }
 
-    jobsSaved[jobId].favorite = !jobsSaved[jobId].favorite
+    jobsSaved[jobId].favorited = !jobsSaved[jobId].favorited
 
     return {response: jobsSaved, error: null}
   }

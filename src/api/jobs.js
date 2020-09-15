@@ -1,5 +1,8 @@
 const BASE_URL = 'http://localhost:3001/api'
-const headers = { 'Content-Type': 'text/plain' }
+const headers = {
+  'Accept': 'application/json',
+  'Content-Type': 'application/json'
+}
 
 export const getJobs = async () => {
   const responseJobs = await fetch(
@@ -36,8 +39,8 @@ export const markFavoriteJob = async (jobId) => {
     `${BASE_URL}/fav`,
     {
       method: 'POST',
+      body: JSON.stringify({ jobId: jobId }),
       headers,
-      body: { jobId },
     }
   )
   const jobsData = await responseJobs.json()
