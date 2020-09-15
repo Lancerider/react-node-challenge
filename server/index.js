@@ -29,6 +29,17 @@ app.get("/api/search", setGobClient, async (req, res) => {
   }
 });
 
+// GET /api/jobs
+app.get("/api/jobs", setGobClient, async (req, res) => {
+  try {
+    const term = req.query.term;
+    let response = await gobClient.accumulateSearch(term);
+    res.send(response);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
 // POST /api/clear
 app.post("/api/clear", setGobClient, async (req, res) => {
   let response = gobClient.clearSearch();
@@ -37,7 +48,7 @@ app.post("/api/clear", setGobClient, async (req, res) => {
 
 // POST /api/fav
 app.post("/api/fav", setGobClient, async (req, res) => {
-  const jobId = req.query.jobId;
+  const jobId = req.body.jobId;
   let response = gobClient.mark(jobId);
   res.send(response);
 });

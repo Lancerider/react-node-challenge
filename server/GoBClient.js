@@ -12,6 +12,12 @@ class GoBClient {
 
   // TODO: *** instance methods ***
 
+  getJobs() {
+    const jobsSaved = database[this.clientID]
+
+    return {response: jobsSaved, error: null}
+  }
+
   // accumulateSearch() - hit https://www.getonbrd.com/search/jobs storing the jobs locally
 
   accumulateSearch(term) {
@@ -54,7 +60,7 @@ class GoBClient {
 
     jobsSaved[jobId].favorite = true
 
-    return {response: jobsSaved, error: false}
+    return {response: jobsSaved, error: null}
   }
 
   // clearSearch() - clears the accumulated searches
