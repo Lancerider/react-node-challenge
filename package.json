@@ -10,7 +10,6 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-pino-logger": "^5.0.0",
-    "node-env-run": "^3.0.2",
     "node-fetch": "^2.6.1",
     "nodemon": "^2.0.4",
     "npm-run-all": "^4.1.5",
@@ -26,7 +25,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "server": "node-env-run server --exec nodemon | pino-colada",
+    "server": "nodemon server | pino-colada",
     "dev": "run-p server start"
   },
   "eslintConfig": {
@@ -44,7 +43,7 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:3001",
+  "proxy": "http://localhost:3000/",
   "devDependencies": {
     "cypress": "^4.11.0"
   }

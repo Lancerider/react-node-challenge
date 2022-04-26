@@ -2,14 +2,14 @@ const express = require("express");
 const bodyParser = require("body-parser");
 var cors = require('cors')
 require('dotenv').config()
-// const pino = require("express-pino-logger")();
+const pino = require("express-pino-logger")();
 
 const GobClient = require("./GoBClient");
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-// app.use(pino);
+app.use(pino);
 app.use(cors())
 app.set('trust proxy', true)
 
