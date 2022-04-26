@@ -5,13 +5,13 @@ describe("Searching in Get on Board", () => {
     cy.contains("Term");
 
     cy.get("#term")
-      .type("React Node Concierge")
-      .should("have.value", "React Node Concierge");
+      .type("EcomExperts")
+      .should("have.value", "EcomExperts");
 
     cy.get("button").contains("Search").click();
     cy.contains("...searching");
     cy.get(".search-result").contains(
-      "Full-Stack React/Node.js by Concierge by Get on Board"
+      " by EcomExperts"
     );
 
     cy.get("#term").clear().type("React Node");
