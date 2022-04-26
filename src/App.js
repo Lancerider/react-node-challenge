@@ -8,10 +8,12 @@ import "./App.css";
 
 function App() {
   const [searching, setSearching] = useState(false);
+  const [errorSearching, setErrorSearching] = useState(false);
   const [term, setTerm] = useState('');
   const [jobs, setJobs] = useState({})
 
   const getUserJobs = async () => {
+    setSearching(true)
 
     try {
       const fetchedJobs = await getJobs()
@@ -46,22 +48,24 @@ function App() {
   }
 
   const search = async () => {
+    setErrorSearching(false)
     setSearching(true)
     const formattedTerms = term.split(' ').join("+")
-
+    
     try {
       const fetchedJobs = await searchJobs(formattedTerms)
+
       localStorage.setItem('jobs', fetchedJobs)
       setJobs(fetchedJobs)
     } catch (error) {
       console.error("Error searching Jobs: ", error)
+      setErrorSearching(true)
     }
-
+    
     setSearching(false)
   }
 
   useEffect(() => {
-    setSearching(true)
     getUserJobs()
   }, [])
 
@@ -69,20 +73,27 @@ function App() {
     <div className="App">
       <h1>Search jobs</h1>
       <label htmlFor="term">Term: </label>
+
       <input
         id="term"
         type="text"
         value={term}
         onChange={({ target: { value } }) => setTerm(value)}
       />
+
       <button className="job-list__actions" type="button" onClick={search}>
         Search
       </button>
+
       <button className="job-list__actions" type="button" onClick={clearSearch}>
         Clear
       </button>
-      {searching && <div>...searching</div>}
-      {!searching && <JobsList jobs={jobs} setFavoriteJob={setFavoriteJob}/>}
+
+      { searching && <div>...searching</div> }
+
+      { !searching && !errorSearching && <JobsList jobs={jobs} setFavoriteJob={setFavoriteJob}/> }
+
+      { errorSearching && <div>Ups, there was an error searching for jobs. Please, try again.</div> }
     </div>
   );
 }
