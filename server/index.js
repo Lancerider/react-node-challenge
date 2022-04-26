@@ -1,13 +1,15 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const pino = require("express-pino-logger")();
-const GobClient = require("./GoBClient");
 var cors = require('cors')
+require('dotenv').config()
+// const pino = require("express-pino-logger")();
+
+const GobClient = require("./GoBClient");
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(pino);
+// app.use(pino);
 app.use(cors())
 app.set('trust proxy', true)
 
@@ -24,7 +26,9 @@ const setGobClient = (req, res, next) => {
 app.get("/api/search", setGobClient, async (req, res) => {
   try {
     const term = req.query.term;
+
     let response = await gobClient.accumulateSearch(term);
+
     res.send(response);
   } catch (error) {
     res.send(error);
@@ -35,6 +39,7 @@ app.get("/api/search", setGobClient, async (req, res) => {
 app.get("/api/jobs", setGobClient, async (req, res) => {
   try {
     let response = await gobClient.getJobs();
+
     res.send(response);
   } catch (error) {
     res.send(error);

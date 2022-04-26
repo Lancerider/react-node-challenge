@@ -3,17 +3,21 @@ const fetch = require('node-fetch');
 const { v4: uuidv4 } = require('uuid');
 
 let database = {};
+const apiUrl = process.env.JOBS_API_URL;
 
 class GoBClient {
   constructor(clientID) {
     this.clientID = clientID;
-    if (!database[clientID]) database[clientID] = {};
+
+    if (!database[clientID]) {
+      database[clientID] = {};
+    } 
   }
 
   getJobs() {
     const jobsSaved = database[this.clientID]
 
-    return {response: jobsSaved, error: null}
+    return { response: jobsSaved, error: null }
   }
 
   // accumulateSearch() - hit https://www.getonbrd.com/search/jobs storing the jobs locally
@@ -23,9 +27,13 @@ class GoBClient {
 
     return new Promise((resolve, reject) => {
 
-      fetch('https://www.getonbrd.com/search/jobs?q=' + term, {
-        headers: {'Content-Type': 'application/json'},
-      }).then(async response => {
+      fetch(
+        `${apiUrl}?q=' + ${term}`,
+        {
+          headers: {'Content-Type': 'application/json'}
+        }
+      ).then(async response => {
+
         const jobsSaved = database[this.clientID]
         const jobsData = await response.json()
 
@@ -40,9 +48,11 @@ class GoBClient {
 
         resolve({response: jobsSaved, error: null})
       }).catch(err => {
+
         setTimeout(() => {
           reject({response: null, error: "Not able to get more jobs"})
         }, 3000)
+
       });
     })
   }
